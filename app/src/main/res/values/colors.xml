@@ -7,4 +7,22 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- color for light theme -->
+    <!-- première palette sur teams, à changer plsu tard si vous voulez -->
+    <color name="palette1_red">#FFD00000</color>
+    <color name="palette1_jaune">#FFFFBA08</color>
+    <color name="palette1_bleu">#FF3F88C5</color>
+    <color name="palette1_bleu_marine">#FF032B43</color>
+    <color name="palette1_vert">#FF136F63</color>
+    <color name="palette1_white">#FFF4F1DE</color>
+
+    <!-- color for dark theme -->
+    <color name="palette2_white">#FFF4F1DE</color>
+    <color name="palette2_red">#FFE07A5F</color>
+    <color name="palette2_bleu">#FF3D405B</color>
+    <color name="palette2_vert">#FF81B29A</color>
+    <color name="palette2_jaune">#FFF2CC8F</color>
+
+
 </resources>

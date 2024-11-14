@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.chiouaoua.databinding.FragmentNotificationsBinding
+import com.example.chiouaoua.databinding.FragmentParametersBinding
 
 class ParametersFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentParametersBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,10 +25,10 @@ class ParametersFragment : Fragment() {
         val parametersViewModel =
             ViewModelProvider(this).get(ParametersViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentParametersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textParameters
         parametersViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_contact"
-        android:name="com.example.chiouaoua.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.example.chiouaoua.ui.home.ContactsFragment"
+        android:label="@string/title_contacts"
+        tools:layout="@layout/fragment_contacts" />
 
     <fragment
-        android:id="@+id/navigation_principal"
+        android:id="@+id/navigation_dashboard"
         android:name="com.example.chiouaoua.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_parameter"
         android:name="com.example.chiouaoua.ui.notifications.ParametersFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:label="@string/title_parameters"
+        tools:layout="@layout/fragment_parameters" />
 </navigation>
