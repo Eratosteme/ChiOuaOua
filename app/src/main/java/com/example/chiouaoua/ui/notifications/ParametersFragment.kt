@@ -34,7 +34,7 @@ class ParametersFragment : Fragment() {
         volumeBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 // Met à jour dynamiquement le pourcentage
-                percentageVolume.text = "Volume: $progress%"
+                percentageVolume.text = "$progress%"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
