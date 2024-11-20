@@ -24,11 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="418dp"
-        android:layout_height="145dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="80dp">
+
 
         <TextView
             android:id="@+id/porcentagevolume"
@@ -53,7 +49,6 @@
             android:layout_height="34dp"
             tools:layout_editor_absoluteX="100dp"
             tools:layout_editor_absoluteY="88dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
