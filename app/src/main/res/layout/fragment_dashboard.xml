@@ -19,4 +19,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/service_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Launch Service"
+        app:layout_constraintTop_toBottomOf="@id/text_dashboard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/service_stop_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"/>
+
+    <Button
+        android:id="@+id/service_stop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Service"
+        app:layout_constraintTop_toBottomOf="@id/text_dashboard"
+        app:layout_constraintStart_toEndOf="@id/service_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
