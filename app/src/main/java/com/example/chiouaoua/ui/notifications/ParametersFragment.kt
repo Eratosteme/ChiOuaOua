@@ -1,50 +1,53 @@
 package com.example.chiouaoua.ui.notifications
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.chiouaoua.databinding.FragmentParametersBinding
 
 class ParametersFragment : Fragment() {
 
     private var _binding: FragmentParametersBinding? = null
-
-    // Cette propriété est uniquement valide entre onCreateView et onDestroyView
     private val binding get() = _binding!!
+
+    // Clé pour identifier les données dans SharedPreferences
+    private val PREFERENCES_FILE_KEY = "com.example.chiouaoua.preferences"
+    private val MESSAGE_KEY = "saved_message"
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val parametersViewModel =
-            ViewModelProvider(this).get(ParametersViewModel::class.java)
-
         _binding = FragmentParametersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Configuration de la SeekBar
-        val volumeBar = binding.volumebar
-        val percentageVolume = binding.porcentagevolume
+        // Charger le texte sauvegardé depuis SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences(PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+        val savedMessage = sharedPreferences.getString(MESSAGE_KEY, "")
+        binding.MessageEdit.setText(savedMessage) // Met à jour le champ avec le texte sauvegardé
 
-        volumeBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // Met à jour dynamiquement le pourcentage
-                percentageVolume.text = "$progress%"
-            }
+        // Bouton Sauvegarder
+        binding.SaveEditMessage.setOnClickListener {
+            val newMessage = binding.MessageEdit.text.toString()
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Optionnel
+            if (newMessage.isNotBlank()) {
+                // Sauvegarde du message dans SharedPreferences
+                with(sharedPreferences.edit()) {
+                    putString(MESSAGE_KEY, newMessage)
+                    apply()
+                }
+                // Feedback utilisateur
+                Toast.makeText(requireContext(), "Message sauvegardé !", Toast.LENGTH_SHORT).show()
+            } else {
+                // Si le champ est vide, afficher un avertissement
+                Toast.makeText(requireContext(), "Le champ ne peut pas être vide.", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Optionnel
-            }
-        })
+        }
 
         return root
     }

@@ -29,14 +29,15 @@
             android:id="@+id/textView"
             android:layout_width="157dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="Volume: "
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textSize="24sp"
             android:textStyle="normal|bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="37dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -53,6 +54,37 @@
                 android:layout_width="276dp"
                 android:layout_height="34dp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/MessageParametre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Edition message automatique:"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LayoutEditMessage"
+            android:layout_width="match_parent"
+            android:layout_height="104dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/MessageEdit"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:text="Chute potentiel déctecté! Vérification requise." />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/SaveEditMessage"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="Sauvegarder" />
 
     </LinearLayout>
 
