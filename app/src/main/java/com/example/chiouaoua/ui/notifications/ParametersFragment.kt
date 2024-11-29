@@ -1,6 +1,8 @@
 package com.example.chiouaoua.ui.notifications
 
 import android.content.Context
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,10 +48,7 @@ class ParametersFragment : Fragment() {
                 binding.porcentagevolume.text = "$progress%"
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Optionnel : lorsque l'utilisateur commence à déplacer la SeekBar
-            }
-
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 // Sauvegarder la valeur de la SeekBar
                 with(sharedPreferences.edit()) {
@@ -70,12 +69,20 @@ class ParametersFragment : Fragment() {
                     putString(MESSAGE_KEY, newMessage)
                     apply()
                 }
-                // Feedback utilisateur
                 Toast.makeText(requireContext(), "Message sauvegardé !", Toast.LENGTH_SHORT).show()
             } else {
-                // Si le champ est vide, afficher un avertissement
                 Toast.makeText(requireContext(), "Le champ ne peut pas être vide.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // Gestion du bouton Tester le Volume
+        binding.TestVolumeButton.setOnClickListener {
+            val volume = binding.volumebar.progress
+
+            // Utiliser ToneGenerator pour tester le volume
+            val toneGen = ToneGenerator(AudioManager.STREAM_MUSIC, volume * 10) // Volume entre 0 et 100
+            toneGen.startTone(ToneGenerator.TONE_DTMF_S, 500) // Joue un son pendant 500 ms
+            Toast.makeText(requireContext(), "Test du volume : $volume%", Toast.LENGTH_SHORT).show()
         }
 
         return root

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.ParametersFragment">
-
 
     <LinearLayout
         android:layout_width="408dp"
@@ -14,6 +14,7 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="-2dp">
 
+        <!-- Titre du Volume -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="157dp"
@@ -24,12 +25,14 @@
             android:textSize="24sp"
             android:textStyle="normal|bold" />
 
+        <!-- Section Volume -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
+            <!-- Indicateur de Volume -->
             <TextView
                 android:id="@+id/porcentagevolume"
                 android:layout_width="74dp"
@@ -38,22 +41,34 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
+            <!-- SeekBar -->
             <SeekBar
                 android:id="@+id/volumebar"
                 android:layout_width="276dp"
                 android:layout_height="34dp" />
         </LinearLayout>
 
+        <!-- Bouton Tester le Volume -->
+        <Button
+            android:id="@+id/TestVolumeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Tester le Volume" />
+
+        <!-- Section de modification de texte -->
         <TextView
             android:id="@+id/MessageParametre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
-            android:text="Edition message envoyé:"
+            android:text="Édition message envoyé:"
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <!-- Champ de texte avec TextInputLayout -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/LayoutEditMessage"
             android:layout_width="match_parent"
@@ -67,18 +82,17 @@
                 android:layout_marginStart="5dp"
                 android:background="@drawable/rounded_edittext"
                 android:gravity="center_vertical"
-                android:text="Chute potentiel déctecté! Vérification requise."
+                android:text="Chute potentiel détecté! Vérification requise."
                 android:textAlignment="center" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Bouton Sauvegarder -->
         <Button
             android:id="@+id/SaveEditMessage"
-            android:layout_width="155dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
             android:text="Sauvegarder" />
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
