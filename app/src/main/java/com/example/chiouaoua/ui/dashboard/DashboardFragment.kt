@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.chiouaoua.FallDetectionService
+import com.example.chiouaoua.MainActivity
+import com.example.chiouaoua.RunningService
 import com.example.chiouaoua.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -43,14 +46,16 @@ class DashboardFragment : Fragment() {
 
 
         serciceStartButton.setOnClickListener {
-            val serviceIntent = Intent(requireContext(), FallDetectionService::class.java)
-            requireContext().startService(serviceIntent)
-
+            val serviceIntent = Intent(requireContext(), RunningService::class.java)
+            serviceIntent.action = RunningService.Actions.START.toString()
+            ContextCompat.startForegroundService(requireContext(), serviceIntent)
+            Toast.makeText(context, "Service Started!", Toast.LENGTH_SHORT).show()
         }
 
         serviceStopButton.setOnClickListener {
-            val serviceIntent = Intent(requireContext(), FallDetectionService::class.java)
-            requireContext().stopService(serviceIntent)
+            val serviceIntent = Intent(requireContext(), RunningService::class.java)
+            serviceIntent.action = RunningService.Actions.STOP.toString()
+            ContextCompat.startForegroundService(requireContext(), serviceIntent)
             Toast.makeText(context, "Service Stopped!", Toast.LENGTH_SHORT).show()
         }
 
