@@ -85,7 +85,7 @@
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="Sauvegarder" />
+            android:text="Sauvegarde" />
 
     </LinearLayout>
 
