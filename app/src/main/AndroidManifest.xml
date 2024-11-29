@@ -13,7 +13,11 @@
         android:theme="@style/Theme.ChiOuaOua"
         tools:targetApi="31">
 
-        <service android:name=".FallDetectionService$BackgroundService" />
+        <service android:name=".FallDetectionService$BackgroundService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false">
+        </service>
+
 
         <activity
             android:name=".MainActivity"

@@ -45,7 +45,7 @@ class DashboardFragment : Fragment() {
         serciceStartButton.setOnClickListener {
             val serviceIntent = Intent(requireContext(), FallDetectionService::class.java)
             requireContext().startService(serviceIntent)
-            Toast.makeText(context, "Service Button Clicked!", Toast.LENGTH_SHORT).show()
+
         }
 
         serviceStopButton.setOnClickListener {
