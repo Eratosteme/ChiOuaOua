@@ -15,17 +15,6 @@
         tools:layout_editor_absoluteY="-2dp">
 
         <TextView
-            android:id="@+id/text_parameters"
-            android:layout_width="match_parent"
-            android:layout_height="89dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Paramètre"
-            android:textAlignment="center"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textView"
             android:layout_width="157dp"
             android:layout_height="wrap_content"
@@ -61,21 +50,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
-            android:text="Edition message automatique:"
+            android:text="Edition message envoyé:"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/LayoutEditMessage"
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/MessageEdit"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="54dp"
                 android:layout_margin="5dp"
                 android:layout_marginStart="5dp"
+                android:background="@drawable/rounded_edittext"
+                android:gravity="center_vertical"
                 android:text="Chute potentiel déctecté! Vérification requise."
                 android:textAlignment="center" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +76,7 @@
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="Sauvegarde" />
+            android:text="Sauvegarder" />
 
     </LinearLayout>
 
