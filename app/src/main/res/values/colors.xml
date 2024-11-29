@@ -16,7 +16,7 @@
     <color name="palette1_bleu_marine">#FF032B43</color>
     <color name="palette1_vert">#FF136F63</color>
     <color name="palette1_white">#FFF4F1DE</color>
-
+    <color name="ic_launcher_background">#9200c5</color>
     <!-- color for dark theme -->
     <color name="palette2_white">#FFF4F1DE</color>
     <color name="palette2_red">#FFE07A5F</color>
