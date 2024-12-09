@@ -4,9 +4,13 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"></uses-feature>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChiOuaOua"
         tools:targetApi="31">
+        <activity
+            android:name=".FullscreenAlarmActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_fullscreen_alarm"
+            android:theme="@style/Theme.ChiOuaOua.Fullscreen" />
 
         <service
             android:name=".FallDetectionService$BackgroundService"

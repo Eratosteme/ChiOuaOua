@@ -3,4 +3,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_parameters">Parameters</string>
+    <string name="title_activity_fullscreen_alarm">FullscreenAlarmActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="alarm_explanation">Alerte chute !\nVous avez 20 secondes pour désactivez l\'alerte\nou bien une alarm sera envoyé.\n</string>
+    <string name="button_alarm_earlier">Lancer l\'alerte</string>
+    <string name="button_cancel_alarm">Arreter l\'alarme</string>
 </resources>

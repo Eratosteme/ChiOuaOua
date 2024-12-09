@@ -68,19 +68,21 @@ class RunningService : Service(), SensorEventListener {
     var threadShould=3000.0
     var oldtime:Long=0
     override fun onSensorChanged(event: SensorEvent?) {
-        var x=event!!.values[0]
-        var y=event!!.values[1]
-        var z=event!!.values[2]
-        var currentTime=System.currentTimeMillis()
-        if((currentTime-oldtime)>100){
-            var timeDiff=currentTime-oldtime
-            oldtime=currentTime
-            var speed=Math.abs(y+x+z-xold-yold-zold)/timeDiff*10000
-            text = "$speed"
-            if (speed>threadShould){
-                var v=getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                v.vibrate(500)
-                Toast.makeText(applicationContext, "shock$speed", Toast.LENGTH_LONG).show()
+        if (isRunning){
+            var x=event!!.values[0]
+            var y=event!!.values[1]
+            var z=event!!.values[2]
+            var currentTime=System.currentTimeMillis()
+            if((currentTime-oldtime)>100){
+                var timeDiff=currentTime-oldtime
+                oldtime=currentTime
+                var speed=Math.abs(y+x+z-xold-yold-zold)/timeDiff*10000
+                text = "$speed"
+                if (speed>threadShould){
+                    var v=getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    v.vibrate(500)
+                    Toast.makeText(applicationContext, "shock$speed", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
