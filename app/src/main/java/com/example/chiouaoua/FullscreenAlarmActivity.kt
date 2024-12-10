@@ -2,6 +2,8 @@ package com.example.chiouaoua
 
 import androidx.appcompat.app.AppCompatActivity
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -91,6 +93,8 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         // while interacting with the UI.
         binding.buttonCancelAlarm.setOnTouchListener(delayHideTouchListener)
         binding.buttonAlarmEarlier.setOnTouchListener(delayHideTouchListener)
+
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -133,7 +137,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         isFullscreen = true
 
         // Schedule a runnable to display UI elements after a delay
-        hideHandler.removeCallbacks(hidePart2Runnable)
+        hideHandler.removeCallbacks(hidePart2Runnable){}
         hideHandler.postDelayed(showPart2Runnable, UI_ANIMATION_DELAY.toLong())
     }
 
@@ -145,7 +149,11 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
     }
-
+    fun changeActiveActivity(context: Context) {
+        val intent = Intent(context, FullscreenAlarmActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+    }
     companion object {
         /**
          * Whether or not the system UI should be auto-hidden after

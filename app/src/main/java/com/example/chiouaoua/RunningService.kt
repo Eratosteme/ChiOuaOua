@@ -82,9 +82,16 @@ class RunningService : Service(), SensorEventListener {
                     var v=getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     v.vibrate(500)
                     Toast.makeText(applicationContext, "shock$speed", Toast.LENGTH_LONG).show()
+                    changeActiveActivity(this)
+                    stop()
                 }
             }
         }
+    }
+    fun changeActiveActivity(context: Context) {
+        val intent = Intent(context, FullscreenAlarmActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

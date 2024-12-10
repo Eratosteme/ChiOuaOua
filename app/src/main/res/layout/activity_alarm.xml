@@ -18,8 +18,16 @@
         android:keepScreenOn="true"
         android:text="@string/alarm_explanation"
         android:textColor="?attr/fullscreenTextColor"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_cancel_alarm_big"
+        style="?android:attr/buttonBarNeutralButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/button_cancel_alarm" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
