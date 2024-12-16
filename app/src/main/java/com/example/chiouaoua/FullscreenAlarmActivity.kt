@@ -91,7 +91,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        binding.buttonCancelAlarm.setOnTouchListener(delayHideTouchListener)
+        binding.buttonCancelAlarm.setOnClickListener{changeActiveActivity(this)}
         binding.buttonAlarmEarlier.setOnTouchListener(delayHideTouchListener)
 
 
@@ -149,11 +149,12 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
     }
-    fun changeActiveActivity(context: Context) {
-        val intent = Intent(context, FullscreenAlarmActivity::class.java)
+    private fun changeActiveActivity(context: Context) {
+        val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
     }
+
     companion object {
         /**
          * Whether or not the system UI should be auto-hidden after
