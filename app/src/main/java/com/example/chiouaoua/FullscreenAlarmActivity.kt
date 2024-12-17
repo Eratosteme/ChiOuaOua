@@ -4,15 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+//import androidx.privacysandbox.tools.core.generator.build
 import com.example.chiouaoua.databinding.ActivityAlarmBinding
 
 /**
@@ -20,11 +27,12 @@ import com.example.chiouaoua.databinding.ActivityAlarmBinding
  * status bar and navigation/system bar) with user interaction.
  */
 class FullscreenAlarmActivity : AppCompatActivity() {
-
+    var isRunning: Boolean = false
     private lateinit var binding: ActivityAlarmBinding
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler(Looper.myLooper()!!)
+    lateinit var ringtone: Ringtone
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -74,6 +82,23 @@ class FullscreenAlarmActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isRunning = true
+
+        val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+        ringtone = RingtoneManager.getRingtone(this, ringtoneUri)
+        ringtone.play()
+        // ticking code to get out of there and make it vibrate faster and faster
+        doSomethingAfterDelay(this, 1) {
+            // Code to execute 40 times
+            var v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)) // Vibrate for 100ms
+            } else {
+                v.vibrate(100) // Vibrate for 100ms (older devices)
+            }
+
+        }
+
 
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -95,6 +120,19 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         binding.buttonAlarmEarlier.setOnTouchListener(delayHideTouchListener)
 
 
+    }
+
+    fun doSomethingAfterDelay(context: Context, iteration: Int, action: () -> Unit) {
+        val delayInMillis = 2  * 1000L // Convert seconds to milliseconds
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isRunning) {
+                action()
+                if (iteration < 21) {
+                    doSomethingAfterDelay(context, iteration + 1, action)
+                }
+            }
+
+        }, delayInMillis)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -150,6 +188,8 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         hideHandler.postDelayed(hideRunnable, delayMillis.toLong())
     }
     private fun changeActiveActivity(context: Context) {
+        isRunning = false
+        ringtone.stop()
         val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
