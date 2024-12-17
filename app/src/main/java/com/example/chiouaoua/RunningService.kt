@@ -1,5 +1,6 @@
 package com.example.chiouaoua
 
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Binder
 import android.os.IBinder
 import android.os.Vibrator
 import android.widget.EditText
@@ -23,7 +25,10 @@ class RunningService : Service(), SensorEventListener {
     lateinit var text: String
 
     override fun onBind(intent: Intent?): IBinder? {
-        return null
+        return LocalBinder() // Return the binder for binding
+    }
+    inner class LocalBinder : Binder() {
+        fun getService(): RunningService = this@RunningService
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -51,6 +56,19 @@ class RunningService : Service(), SensorEventListener {
 
         }
     }
+    fun updateNotification() {
+        val text = timerUpdateListener?.onTimerUpdated() ?: return // Get timer text from listener
+        val notification = NotificationCompat.Builder(this.applicationContext, "running_channel")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("ChiOuaOua is Active")
+            .setContentText("Elapsed time: $text") // Update content text
+            .setColor(ContextCompat.getColor(this.applicationContext, R.color.palette1_bleu))
+            .setOngoing(true)
+            .build()
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(1, notification) // Update notification with ID 1
+    }
     private fun stop(){
         if (isRunning) {
             isRunning = false
@@ -58,6 +76,17 @@ class RunningService : Service(), SensorEventListener {
             stopSelf()
         }
     }
+
+    interface TimerUpdateListener {
+        fun onTimerUpdated(): String
+    }
+
+    private var timerUpdateListener: TimerUpdateListener? = null
+
+    fun setTimerUpdateListener(listener: TimerUpdateListener) {
+        this.timerUpdateListener = listener
+    }
+
     enum class Actions {
         START, STOP
     }
@@ -74,6 +103,7 @@ class RunningService : Service(), SensorEventListener {
             var z=event!!.values[2]
             var currentTime=System.currentTimeMillis()
             if((currentTime-oldtime)>100){
+                updateNotification()
                 var timeDiff=currentTime-oldtime
                 oldtime=currentTime
                 var speed=Math.abs(y+x+z-xold-yold-zold)/timeDiff*10000
