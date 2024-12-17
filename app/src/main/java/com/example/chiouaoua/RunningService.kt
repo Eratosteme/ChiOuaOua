@@ -64,11 +64,13 @@ class RunningService : Service(), SensorEventListener {
             .setContentText("Elapsed time: $text") // Update content text
             .setColor(ContextCompat.getColor(this.applicationContext, R.color.palette1_bleu))
             .setOngoing(true)
+            .setOnlyAlertOnce(true)  
             .build()
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(1, notification) // Update notification with ID 1
     }
+
     private fun stop(){
         if (isRunning) {
             isRunning = false
