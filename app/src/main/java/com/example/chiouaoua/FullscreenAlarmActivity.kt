@@ -131,12 +131,16 @@ class FullscreenAlarmActivity : AppCompatActivity() {
                 if (iteration < 21) {
                     doSomethingAfterDelay(context, iteration + 1, action)
                 }
+                else {
+                    alarmNow(context)
+                }
             }
 
         }, delayInMillis)
     }
     fun alarmNow(context: Context) {
         sendSMS("+33664570300", "Hello from ChiOuaOua!")
+        changeActiveActivity(this)
     }
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)

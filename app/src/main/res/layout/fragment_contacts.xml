@@ -7,43 +7,34 @@
     tools:context=".ui.home.ContactsFragment">
 
     <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
+        android:id="@+id/MessageParametre"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/edition_numéro"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- Section de modification de texte -->
-    <TextView
-        android:id="@+id/MessageParametre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:text="Édition message envoyé:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints" />
 
-    <!-- Champ de texte avec TextInputLayout -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/LayoutEditMessage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MessageParametre">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/MessageEdit"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_margin="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/rounded_edittext"
             android:gravity="center_vertical"
             android:text="+33664570300"
@@ -51,13 +42,14 @@
             tools:ignore="RtlCompat" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Bouton Sauvegarder -->
     <Button
         android:id="@+id/SaveEditMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Sauvegarder"
-        tools:ignore="MissingConstraints" />
+        android:text="@string/sauvegarder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LayoutEditMessage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
