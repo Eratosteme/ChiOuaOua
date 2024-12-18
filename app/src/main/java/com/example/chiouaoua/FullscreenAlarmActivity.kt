@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.Ringtone
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -116,6 +117,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
     }
     fun alarmNow(context: Context) {
         sendSMS(savedNumber, savedMessage)
+        makePhoneCall("savedNumber")
         changeActiveActivity(this)
     }
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -180,6 +182,11 @@ class FullscreenAlarmActivity : AppCompatActivity() {
     fun sendSMS(phoneNumber: String, message: String) {
         val smsManager = SmsManager.getDefault()
         smsManager.sendTextMessage(phoneNumber, null, message, null, null)
+    }
+    fun makePhoneCall(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.data = Uri.parse("tel:$phoneNumber")
+        startActivity(intent)
     }
     companion object {
         /**
