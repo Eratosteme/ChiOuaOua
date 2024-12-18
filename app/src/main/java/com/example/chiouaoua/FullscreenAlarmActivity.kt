@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.telephony.SmsManager
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
@@ -117,7 +118,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         binding.buttonCancelAlarm.setOnClickListener{changeActiveActivity(this)}
-        binding.buttonAlarmEarlier.setOnTouchListener(delayHideTouchListener)
+        binding.buttonAlarmEarlier.setOnClickListener{alarmNow(this)}
 
 
     }
@@ -134,7 +135,9 @@ class FullscreenAlarmActivity : AppCompatActivity() {
 
         }, delayInMillis)
     }
-
+    fun alarmNow(context: Context) {
+        sendSMS("+33664570300", "Hello from ChiOuaOua!")
+    }
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
@@ -194,7 +197,10 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
     }
-
+    fun sendSMS(phoneNumber: String, message: String) {
+        val smsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage(phoneNumber, null, message, null, null)
+    }
     companion object {
         /**
          * Whether or not the system UI should be auto-hidden after
