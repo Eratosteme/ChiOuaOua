@@ -10,5 +10,5 @@
     <string name="button_alarm_earlier">Lancer l\'alerte</string>
     <string name="button_cancel_alarm">Arreter l\'alarme</string>
     <string name="sauvegarder">Sauvegarder</string>
-    <string name="edition_numéro">+33664570300</string>
+    <string name="edition_numéro">entrez le numéro à contacter</string>
 </resources>

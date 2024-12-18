@@ -12,7 +12,8 @@
         android:layout_height="729dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="-2dp">
+        tools:layout_editor_absoluteY="-2dp"
+        tools:ignore="MissingConstraints">
 
         <!-- Titre du Volume -->
         <TextView
@@ -83,7 +84,8 @@
                 android:background="@drawable/rounded_edittext"
                 android:gravity="center_vertical"
                 android:text="Chute potentiel détecté! Vérification requise."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:ignore="RtlCompat" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Bouton Sauvegarder -->

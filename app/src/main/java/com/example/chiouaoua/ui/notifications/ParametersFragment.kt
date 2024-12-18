@@ -1,5 +1,6 @@
 package com.example.chiouaoua.ui.notifications
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.AudioManager
 import android.media.ToneGenerator
@@ -22,6 +23,7 @@ class ParametersFragment : Fragment() {
     private val MESSAGE_KEY = "saved_message"
     private val VOLUME_KEY = "saved_volume"
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

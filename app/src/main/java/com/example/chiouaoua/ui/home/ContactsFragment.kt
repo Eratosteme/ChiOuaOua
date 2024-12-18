@@ -21,7 +21,7 @@ class ContactsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val PREFERENCES_FILE_KEY = "com.example.chiouaoua.preferences"
-    private val NUMBER_KEY = "saved_message"
+    private val NUMBER_KEY = "saved_number"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +44,7 @@ class ContactsFragment : Fragment() {
         binding.MessageEdit.setText(savedMessage)
         val saveButton: Button = binding.SaveEditMessage
         val textView: TextView = binding.MessageEdit
-        contactsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
 
         saveButton.setOnClickListener {
             val editedMessage = textView.text.toString()

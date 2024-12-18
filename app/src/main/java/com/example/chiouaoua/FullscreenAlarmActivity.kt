@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.Ringtone
 import android.media.RingtoneManager
-import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,12 +13,11 @@ import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.telephony.SmsManager
-import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 //import androidx.privacysandbox.tools.core.generator.build
 import com.example.chiouaoua.databinding.ActivityAlarmBinding
 
@@ -28,30 +26,23 @@ import com.example.chiouaoua.databinding.ActivityAlarmBinding
  * status bar and navigation/system bar) with user interaction.
  */
 class FullscreenAlarmActivity : AppCompatActivity() {
-    var isRunning: Boolean = false
+    private var isRunning: Boolean = false
     private lateinit var binding: ActivityAlarmBinding
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler(Looper.myLooper()!!)
     lateinit var ringtone: Ringtone
 
+    private val PREFERENCES_FILE_KEY = "com.example.chiouaoua.preferences"
+    private val NUMBER_KEY = "saved_number"
+    private val MESSAGE_KEY = "saved_message"
+    lateinit var savedMessage: String
+    lateinit var savedNumber: String
+
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
-        if (Build.VERSION.SDK_INT >= 30) {
-            fullscreenContent.windowInsetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-        } else {
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            fullscreenContent.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LOW_PROFILE or
-                        View.SYSTEM_UI_FLAG_FULLSCREEN or
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        }
+        fullscreenContent.windowInsetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
     }
     private val showPart2Runnable = Runnable {
         // Delayed display of UI elements
@@ -62,28 +53,17 @@ class FullscreenAlarmActivity : AppCompatActivity() {
 
     private val hideRunnable = Runnable { hide() }
 
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private val delayHideTouchListener = View.OnTouchListener { view, motionEvent ->
-        when (motionEvent.action) {
-            MotionEvent.ACTION_DOWN -> if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS)
-            }
-
-            MotionEvent.ACTION_UP -> view.performClick()
-            else -> {
-            }
-        }
-        false
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isRunning = true
+
+        // Récupérer SharedPreferences
+        val sharedPreferences = getSharedPreferences(PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+
+        // Charger les valeurs sauvegardées
+        savedMessage = sharedPreferences.getString(MESSAGE_KEY, "").toString()
+        savedNumber = sharedPreferences.getString(NUMBER_KEY, "").toString()
 
         val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         ringtone = RingtoneManager.getRingtone(this, ringtoneUri)
@@ -91,12 +71,8 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         // ticking code to get out of there and make it vibrate faster and faster
         doSomethingAfterDelay(this, 1) {
             // Code to execute 40 times
-            var v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)) // Vibrate for 100ms
-            } else {
-                v.vibrate(100) // Vibrate for 100ms (older devices)
-            }
+            val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)) // Vibrate for 100ms
 
         }
 
@@ -139,7 +115,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
         }, delayInMillis)
     }
     fun alarmNow(context: Context) {
-        sendSMS("+33664570300", "Hello from ChiOuaOua!")
+        sendSMS(savedNumber, savedMessage)
         changeActiveActivity(this)
     }
     override fun onPostCreate(savedInstanceState: Bundle?) {
