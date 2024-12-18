@@ -1,6 +1,6 @@
 package com.example.chiouaoua
 
-import androidx.appcompat.app.AppCompatActivity
+//import androidx.privacysandbox.tools.core.generator.build
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -18,8 +18,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
-//import androidx.privacysandbox.tools.core.generator.build
+import androidx.appcompat.app.AppCompatActivity
 import com.example.chiouaoua.databinding.ActivityAlarmBinding
 
 /**
@@ -117,8 +116,7 @@ class FullscreenAlarmActivity : AppCompatActivity() {
     }
     fun alarmNow(context: Context) {
         sendSMS(savedNumber, savedMessage)
-        makePhoneCall("savedNumber")
-        changeActiveActivity(this)
+        makePhoneCall(savedNumber)
     }
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -185,8 +183,9 @@ class FullscreenAlarmActivity : AppCompatActivity() {
     }
     fun makePhoneCall(phoneNumber: String) {
         val intent = Intent(Intent.ACTION_CALL)
-        intent.data = Uri.parse("tel:$phoneNumber")
+        intent.setData(Uri.parse("tel:$phoneNumber"))
         startActivity(intent)
+
     }
     companion object {
         /**
